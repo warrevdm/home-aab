@@ -1,4 +1,6 @@
 Options -Indexes
+RewriteEngine On
+RewriteRule ^auth\.php$ - [F,L,NC]
 
 <IfModule mod_headers.c>
     Header always set X-Robots-Tag "noindex, nofollow, noarchive"
