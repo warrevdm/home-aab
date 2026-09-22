@@ -19,7 +19,15 @@ require_once __DIR__ . '/pricing.php';
 require_once __DIR__ . '/mailer.php';
 require_once __DIR__ . '/contracts_v2.php';
 require_once __DIR__ . '/reservation_status.php';
-require_once dirname(ROOT_PATH) . '/mailing-system/src/auth.php';
+$homeAuthBridge = dirname(ROOT_PATH) . '/home/auth.php';
+if (is_file($homeAuthBridge)) {
+    require_once $homeAuthBridge;
+}
+
+if (!function_exists('authSessionStart')) {
+    http_response_code(503);
+    exit('Centrale login is niet beschikbaar. Controleer /home en /mailing-system op de server.');
+}
 
 load_env(ROOT_PATH . '/.env');
 date_default_timezone_set(env('APP_TIMEZONE', 'Europe/Brussels'));
